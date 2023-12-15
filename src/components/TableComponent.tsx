@@ -23,22 +23,23 @@ const columns: ColumnsType<DataType> = [
 ];
 
 function TableComponent() {
-  const LIMIT_LIST_SCHOOL = 10;
+  const LIMIT = 10;
   const [page, setPage] = useState<number>(1)
   const [dataSource, setDataSource] = useState<DataType[]>()
   const getUniversity = async (page: number, limit: number) => {
-      const response = await axios.get(`http://universities.hipolabs.com/search?offset=${page*limit}&limit=${limit}`)
+      const offset = page * 10
+      const response = await axios.get(`http://universities.hipolabs.com/search?limit=${limit}&skip=${offset}`)
       setDataSource(response.data);    
   }
   useEffect(() => {
-      getUniversity(page, LIMIT_LIST_SCHOOL)
+      getUniversity(page, LIMIT)
   }, [page])
 
   return (
       <>
           <Table dataSource={dataSource} columns={columns} pagination={false}/>
           <div className='table__page-buttons'>
-              <Button onClick={() => setPage(page - 1)} disabled={!(page-1)}>Назад</Button>
+              <Button onClick={() => setPage(page - 1)} disabled={page == 1}>Назад</Button>
               <p className='table__page-count'>{page}</p>
               <Button onClick={() => setPage(page + 1)}>Вперед</Button>
           </div>

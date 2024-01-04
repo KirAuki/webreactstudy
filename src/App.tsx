@@ -1,10 +1,12 @@
-import TableComponent from './components/TableComponent'
+import NavBar from './components/navBar';
+import MainRouter from './app/routing';
 import './index.css';
 function App() {
 
   return (
     <>
-      <TableComponent></TableComponent>
+      <NavBar />
+      <MainRouter />
     </>
   )
 }

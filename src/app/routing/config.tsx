@@ -1,0 +1,5 @@
+export const HOME = '/'
+export const PROFILE = '/profile'
+export const LIBRARY = '/library'
+export const PLAYER = '/player'
+export const AUTH = '/auth'

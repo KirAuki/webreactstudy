@@ -5,7 +5,6 @@ import { HOME,PROFILE,LIBRARY,PLAYER,AUTH } from './config';
 import { HomePage,PlayerPage,LibraryPage,ProfilePage,AuthPage } from '../../pages'
 
 
-
 const MainRouter : FC = () => {
     const [token, setToken] = useState('');
 

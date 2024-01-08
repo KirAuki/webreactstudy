@@ -25,6 +25,11 @@ const AlbumInfo: React.FC<AlbumInfoProps> = ({ album }) => {
   }
   const artists = album?.artists?.map((artist) => artist.name) || [];
 
+  const albumInfoText = `${album?.name} is an ${album?.album_type} by ${artists.join(
+    ", "
+  )} with ${album?.total_tracks} track(s)`;
+
+
   return (
     <div className="albumInfo-card">
       <div className="albumName-container">
@@ -33,9 +38,7 @@ const AlbumInfo: React.FC<AlbumInfoProps> = ({ album }) => {
         </div>
       </div>
       <div className="album-info">
-        <p>{`${album?.name} is an ${album?.album_type} by ${artists.join(
-          ", "
-        )} with ${album?.total_tracks} track(s)`}</p>
+        <p>{albumInfoText}</p>
       </div>
       <div className="album-release">
         <p>Release Date: {album?.release_date}</p>

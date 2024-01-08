@@ -1,16 +1,14 @@
 import React, { FC,useState, useEffect} from 'react'
 import { Menu,Button } from 'antd'
-import { Link, useLocation} from 'react-router-dom'
-import { HOME,PLAYER,LIBRARY,PROFILE, AUTH } from '../../app/routing/config'
+import { Link} from 'react-router-dom'
+import { HOME,PLAYER,LIBRARY,PROFILE, AUTH, getSelectedKey} from '../../app/routing/config'
 import apiClient from "../../spotify";
 
-
+const defaultImageUrl = "https://avatars.githubusercontent.com/u/113677480?v=4";
 
 const NavBar: FC = () => {
     const [isAuth, setIsAuth] = useState(false);
-    const [image, setImage] = useState(
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdLAY3C19kL0nV2bI_plU3_YFCtra0dpsYkg&usqp=CAU"
-      );
+    const [image, setImage] = useState(defaultImageUrl);
     useEffect(() => {
       const token = window.localStorage.getItem('token');
       setIsAuth(!!token);
@@ -23,26 +21,6 @@ const NavBar: FC = () => {
       window.localStorage.removeItem('token');
       setIsAuth(false);
     };
-
-
-    const getSelectedKey = () => {
-      const { pathname } = useLocation();
-      switch (pathname) {
-        case HOME:
-          return 'home';
-        case PLAYER:
-          return 'player';
-        case LIBRARY:
-          return 'library';
-        case PROFILE:
-          return 'profile';
-        case AUTH:
-          return 'auth';
-        default:
-          return '';
-      }
-    };
-
 
     const items = [
 

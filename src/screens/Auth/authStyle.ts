@@ -1,4 +1,6 @@
-.login {
+import styled from 'styled-components';
+
+export const LoginContainer = styled.div`
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -6,9 +8,9 @@
     justify-content: center;
     overflow: hidden;
     flex-direction: column;
-}
-  
-.login-btn {
+`;
+
+export const LoginButton = styled.button`
     width: 200px;
     padding: 15px 0px;
     text-align: center;
@@ -17,8 +19,9 @@
     color: var(--theme-first-color);
     font-weight: 600;
     margin-top: 20%;
-}
-  
-a {
+    cursor: pointer;
+`;
+
+export const StyledLink = styled.a`
     text-decoration: none;
-}
+`;

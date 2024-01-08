@@ -1,6 +1,6 @@
 import React, {FC, useState, useRef, useEffect } from "react";
-import "./audioPlayer.css";
 import Controls from "./controls";
+import * as S from "./audioPlayerStyle"
 
 interface AudioPlayerProps {
     currentTrack: {
@@ -98,11 +98,11 @@ const AudioPLayer: FC<AudioPlayerProps> = ({
   };
   const artists = currentTrack?.album?.artists?.map((artist) => artist.name) || [];
   return (
-    <div className="player-body flex">
+    <S.PlayerBody>
       
-        <p className="song-title">{currentTrack?.name}</p>
-        <p className="song-artist">{artists.join(" | ")}</p>
-        <div className="player-right-bottom flex">
+        <S.SongTitle>{currentTrack?.name}</S.SongTitle>
+        <S.SongArtist>{artists.join(" | ")}</S.SongArtist>
+        <S.PlayerRightBottom>
           <Controls
             isPlaying={isPlaying}
             setIsPlaying={setIsPlaying}
@@ -110,8 +110,8 @@ const AudioPLayer: FC<AudioPlayerProps> = ({
             handlePrev={handlePrev}
             total={total}
           />
-        </div>
-    </div>
+        </S.PlayerRightBottom>
+    </S.PlayerBody>
   );
 }
 

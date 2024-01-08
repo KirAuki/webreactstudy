@@ -1,5 +1,5 @@
 import React from "react";
-import "./albumInfo.css";
+import * as S from './albumInfoStyle';
 
 interface AlbumInfoProps {
   album: {
@@ -15,14 +15,17 @@ const AlbumInfo: React.FC<AlbumInfoProps> = ({ album }) => {
   if (!album) {
             
     return (
-    <div className="albumInfo-card">
-        <div className="albumName-container">
-            <div className="marquee"><p>Album not selected</p></div>
-        </div>
-    </div>
-     
-    )
+      <S.AlbumInfoCard>
+          <S.AlbumNameContainer>
+              <S.Marquee>
+                  <S.AlbumInfoText>Album not selected</S.AlbumInfoText>
+              </S.Marquee>
+          </S.AlbumNameContainer>
+      </S.AlbumInfoCard>
+    );
   }
+
+
   const artists = album?.artists?.map((artist) => artist.name) || [];
 
   const albumInfoText = `${album?.name} is an ${album?.album_type} by ${artists.join(
@@ -31,19 +34,19 @@ const AlbumInfo: React.FC<AlbumInfoProps> = ({ album }) => {
 
 
   return (
-    <div className="albumInfo-card">
-      <div className="albumName-container">
-        <div className="marquee">
-          <p>{album?.name + " - " + artists.join(", ")}</p>
-        </div>
-      </div>
-      <div className="album-info">
-        <p>{albumInfoText}</p>
-      </div>
-      <div className="album-release">
-        <p>Release Date: {album?.release_date}</p>
-      </div>
-    </div>
+    <S.AlbumInfoCard>
+        <S.AlbumNameContainer>
+            <S.Marquee>
+                <S.AlbumInfoText>{album?.name + ' - ' + artists.join(', ')}</S.AlbumInfoText>
+            </S.Marquee>
+          </S.AlbumNameContainer>
+          <S.AlbumInfoContainer>
+              <S.AlbumInfoText>{albumInfoText}</S.AlbumInfoText>
+          </S.AlbumInfoContainer>
+          <S.AlbumReleaseDate>
+              <S.AlbumInfoText>Release Date: {album?.release_date}</S.AlbumInfoText>
+          </S.AlbumReleaseDate>
+    </S.AlbumInfoCard>
   );
 }
 

@@ -1,13 +1,16 @@
 import React, { FC,useState, useEffect} from 'react'
-import { Menu,Button } from 'antd'
 import { Link} from 'react-router-dom'
 import { HOME,PLAYER,LIBRARY,PROFILE, AUTH, getSelectedKey} from '../../app/routing/config'
 import apiClient from "../../spotify";
+import * as S from "./navBarStyle"
 
 const defaultImageUrl = "https://avatars.githubusercontent.com/u/113677480?v=4";
 
 const NavBar: FC = () => {
     const [isAuth, setIsAuth] = useState(false);
+    const [theme, setTheme] = useState<'dark' | 'light'>(
+      (localStorage.getItem('theme') as 'dark' | 'light') || 'light'
+    );
     const [image, setImage] = useState(defaultImageUrl);
     useEffect(() => {
       const token = window.localStorage.getItem('token');
@@ -22,7 +25,18 @@ const NavBar: FC = () => {
       setIsAuth(false);
     };
 
-    const items = [
+    useEffect(() => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+      const newTheme = theme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+      document.documentElement.setAttribute('data-theme', newTheme);
+    };
+
+     const items = [
 
         {
             label: <Link to={HOME}>Home</Link>,
@@ -37,16 +51,24 @@ const NavBar: FC = () => {
             key: 'library',
         },
         {
-            label: <Link to={PROFILE}><img src={image} alt="" style={{ objectFit: 'cover', borderRadius: '20px', width: '40px', height: '40px' }} /></Link>,
+            label: <Link to={PROFILE}><S.AvatarImage src={image} alt="avatar" /></Link>,
             key: 'profile',
         },
         {
+            label: (
+              <>
+                <S.CustomSwitch onChange={toggleTheme} checked={theme === 'dark'} />
+              </>
+            ),
+            key: 'theme-toggle',
+        },
+        {
             label: isAuth ? (
-              <Button type="link" onClick={handleLogout}>
-                Выйти
-              </Button>
+                <S.CustomButton  onClick={handleLogout}>
+                  Выйти
+                </S.CustomButton>
             ) : (
-              <Link to={AUTH}>Войти</Link>
+                <Link to={AUTH}>Войти</Link>
             ),
             key: 'auth',
           },
@@ -55,12 +77,13 @@ const NavBar: FC = () => {
     
     return (
       <div>
-          <Menu style={{
-              marginBottom: '20px',
-              justifyContent: 'space-between',
-              width: '100%',
-              alignItems: 'center'
-          }} mode="horizontal"  defaultSelectedKeys={["home"]}  selectedKeys={[getSelectedKey()]} items={items} />
+          <S.NavBarContainer>
+              <S.CustomMenu mode="horizontal" defaultSelectedKeys={['home']} selectedKeys={[getSelectedKey()]}>
+                  {items.map((item) => (
+                    <S.CustomMenuItem key={item.key}>{item.label}</S.CustomMenuItem>
+                  ))}
+              </S.CustomMenu>
+          </S.NavBarContainer>
       </div>
     )
 }

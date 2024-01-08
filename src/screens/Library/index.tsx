@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
-import { Card, Col, Row, Pagination } from 'antd';
+import { Col, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import APIKit from '../../spotify';
-
+import * as S from "./libraryStyle"
 
 interface Playlist {
   id: number;
@@ -39,23 +39,23 @@ const Library: FC = () => {
   return (
     <div className="screen-container">
       <Row style={{ margin: '0' }} gutter={16}>
-        {currentPlaylists.map((playlist: any) => (
-          <Col span={8} key={playlist.id}>
-            <Card
-              title={playlist.name}
-              onClick={() => playPlaylist(playlist.id)}
-              style={{ cursor: 'pointer', marginBottom: 16 }}
-            >
-              {playlist.images && playlist.images.length > 0 && (
-                <img src={playlist.images[0].url} alt={playlist.name} style={{ width: '100%', height: 'auto' }} />
-              )}
-              <p>Треков: {playlist.tracks.total}</p>
-            </Card>
-          </Col>
-        ))}
+          {currentPlaylists.map((playlist: any) => (
+              <Col span={8} key={playlist.id}>
+                  <S.CustomCard
+                      title={playlist.name}
+                      onClick={() => playPlaylist(playlist.id)}
+                      style={{ marginBottom: 16 }}
+                  >
+                      {playlist.images && playlist.images.length > 0 && (
+                        <img src={playlist.images[0].url} alt={playlist.name}/>
+                      )}
+                      <p>Треков: {playlist.tracks.total}</p>
+                  </S.CustomCard>
+              </Col>
+          ))}
       </Row>
       <div style={{ textAlign: 'center', marginTop: 16 }}>
-        <Pagination
+        <S.CustomPagination
           current={currentPage}
           total={playlists?.length || 0}
           pageSize={playlistsPerPage}

@@ -34,7 +34,6 @@ const ProfilePage: React.FC = () => {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   useEffect(() => {
-    // Используйте ваш эндпоинт для получения данных профиля
     apiClient.get('me')
       .then(response => setProfileData(response.data))
       .catch(error => console.error('Error fetching profile data:', error));

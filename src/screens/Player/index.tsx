@@ -1,11 +1,23 @@
 import React,{useEffect, useState} from 'react'
 import { useLocation } from "react-router-dom";
 import apiClient from "../../spotify";
-import './player.css'
 import SongCard from "../../components/songCard";
 import AudioPLayer from '../../components/audioPlayer';
 import Queue from '../../components/queue';
+import styled from 'styled-components'
 
+const LeftPlayerBody=styled.div`
+    width: 68%;
+    margin-right: 2%;
+    height: 100%;
+`
+const RightPlayerBody=styled.div`
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
 
 const Player  = () => {
     const location = useLocation();
@@ -33,18 +45,18 @@ const Player  = () => {
 
     return (
       <div className="screen-container flex">
-        <div className="left-player-body">
+        <LeftPlayerBody>
           <AudioPLayer
             currentTrack={currentTrack}
             total={tracks}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
           />
-        </div>
-        <div className="right-player-body">
+        </LeftPlayerBody>
+        <RightPlayerBody>
           <SongCard album={currentTrack?.album} />
           <Queue tracks={tracks} setCurrentIndex={setCurrentIndex} />
-        </div>
+        </RightPlayerBody>
       </div>
     )
 }

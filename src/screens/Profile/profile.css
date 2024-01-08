@@ -9,8 +9,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-    color: black;
-	background-color: #fff;
+    color: var(--theme-first-color);
+	background-color: var(--theme-bg);
     flex-direction: row;
     align-items: flex-start;
 	border-radius: 10px;

@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import {  Space } from 'antd';
+import { PDFDownloadLink } from '@react-pdf/renderer'; 
+import PdfDocument from '../../components/pdfDocument';
 import * as S from './homeStyles'
 
 interface IForm {
@@ -8,6 +10,7 @@ interface IForm {
     email: string;
     review: string;
     rating: number;
+    picture: string; 
 }
 
 const Home: FC = () => {
@@ -18,12 +21,14 @@ const Home: FC = () => {
             email: '',
             review: '',
             rating: 0,
+            picture: '',
         },
     });
     const { errors } = formState;
     const [feedbackList, setFeedbackList] = useState<IForm[]>([]);
 
     const CustomSubmit: SubmitHandler<IForm> = (data) => {
+        data.picture = data.picture ? URL.createObjectURL(data.picture[0]) : null;
         setFeedbackList((prevList) => [...prevList, data]);
         reset();
     };
@@ -104,6 +109,25 @@ const Home: FC = () => {
                         render={({ field }) => <S.StyledInput type="number" {...field} />}
                     />
                 </S.CustomFormItem>
+                <S.CustomFormItem
+                        label="Изображение"
+                        help={errors.picture?.message}
+                    >
+                        <Controller
+                            name="picture"
+                            control={control}
+                            defaultValue={''}
+                            rules={{
+                                required: 'Это поле обязательно',
+                            }}
+                            render={({ field }) => (
+                                <input 
+                                    type="file" 
+                                    onChange={(e) => field.onChange(e.target.files)}
+                                />
+                            )}
+                        />
+                    </S.CustomFormItem>
                 <S.CustomFormItem>
                     <S.CustomButton type="primary" htmlType="submit" disabled={!formState.isValid}>
                     Отправить
@@ -112,6 +136,16 @@ const Home: FC = () => {
             </S.CustomForm>
 
             <div>
+                <PDFDownloadLink
+                    document={
+                        <PdfDocument {...feedbackList[0]} />
+                    }
+                    fileName="feedback.pdf"
+                    >
+                    {({ blob, url, loading, error }) =>
+                        loading ? 'Загрузка документа...' : 'Скачать отзывы в PDF'
+                    }
+                </PDFDownloadLink>
                 <h3>Список отзывов:</h3>
                 <Space direction="vertical" size="middle">
                     {feedbackList.map((item, index) => (
@@ -120,6 +154,7 @@ const Home: FC = () => {
                         <p>Email: {item.email}</p>
                         <p>Отзыв: {item.review}</p>
                         <p>Рейтинг: {item.rating}</p>
+                        <img src={item.picture} alt="picture" />
                     </S.FeedbackCard>
                     ))}
                 </Space>

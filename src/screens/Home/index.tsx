@@ -154,7 +154,7 @@ const Home: FC = () => {
                         <p>Email: {item.email}</p>
                         <p>Отзыв: {item.review}</p>
                         <p>Рейтинг: {item.rating}</p>
-                        <img src={item.picture} alt="picture" />
+                        <S.FeedbackImage src={item.picture} alt="picture" />
                     </S.FeedbackCard>
                     ))}
                 </Space>

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     }
 });
 
-interface MyDocumentProps {
+interface IDocument {
   name: string;
   email: string;
   review: string;
@@ -27,7 +27,7 @@ interface MyDocumentProps {
   picture: string | null;
 }
 
-const PdfDocument: FC<MyDocumentProps> = ({ name, email, review, rating, picture }) => {
+const PdfDocument: FC<IDocument> = ({ name, email, review, rating, picture }) => {
   return (
     <Document>
       <Page size="A4" style={styles.page} wrap>

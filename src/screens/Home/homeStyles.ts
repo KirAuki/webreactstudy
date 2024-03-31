@@ -38,6 +38,12 @@ export const FeedbackCard = styled(Card)`
     color: var(--theme-first-color);
 `;
 
+export const FeedbackImage = styled.img`
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+`;
+
 export const CustomButton = styled(Button)`
     box-shadow: none;
 `;

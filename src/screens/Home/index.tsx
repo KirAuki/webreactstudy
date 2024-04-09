@@ -125,8 +125,3 @@ const Home: FC = () => {
           </Space>
         </div>
       </Space>
-    </div>
-  );
-};
-
-export default Home;

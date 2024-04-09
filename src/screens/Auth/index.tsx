@@ -1,9 +1,6 @@
 import React from "react";
 import { loginEndpoint } from "../../spotify";
-import * as S from './authStyle';
-
-
-
+import * as S from "./authStyle";
 
 export default function Login() {
   return (

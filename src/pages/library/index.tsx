@@ -1,10 +1,8 @@
-import React,{FC} from 'react'
-import Library from '../../screens/Library'
+import React, { FC } from "react";
+import Library from "../../screens/Library";
 
+const LibraryPage: FC = () => {
+  return <Library />;
+};
 
-
-const LibraryPage : FC  = () => {
-  return <Library/>
-}
-
-export default LibraryPage
+export default LibraryPage;

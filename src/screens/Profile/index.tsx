@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import apiClient from '../../spotify';
-import './profile.css'
-
+import React, { useEffect, useState } from "react";
+import apiClient from "../../spotify";
+import "./profile.css";
 
 interface ProfileData {
   country: string;
@@ -34,9 +33,10 @@ const ProfilePage: React.FC = () => {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   useEffect(() => {
-    apiClient.get('me')
-      .then(response => setProfileData(response.data))
-      .catch(error => console.error('Error fetching profile data:', error));
+    apiClient
+      .get("me")
+      .then((response) => setProfileData(response.data))
+      .catch((error) => console.error("Error fetching profile data:", error));
   }, []);
 
   if (!profileData) {
@@ -47,20 +47,25 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="screen-container">
-        <div className="wrapper">
-            <div className="user-card">
-                <div className="user-card-img">
-                    <img src={images[0].url} alt="Profile" height={images[0].height} width={images[0].width} />
-                </div>
-                <div className="user-card-info">
-                    <h1>{display_name}</h1>
-                    <p>Country: {country}</p>
-                    <p>Followers: {followers.total}</p>
-                    <p>Spotify URL: <a href={external_urls.spotify} target="_blank" rel="noopener noreferrer">{external_urls.spotify}</a></p>
-                    <p>Product: {product}</p>
-                </div>
-            </div>
+      <div className="wrapper">
+        <div className="user-card">
+          <div className="user-card-img">
+            <img src={images[0].url} alt="Profile" height={images[0].height} width={images[0].width} />
+          </div>
+          <div className="user-card-info">
+            <h1>{display_name}</h1>
+            <p>Country: {country}</p>
+            <p>Followers: {followers.total}</p>
+            <p>
+              Spotify URL:{" "}
+              <a href={external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                {external_urls.spotify}
+              </a>
+            </p>
+            <p>Product: {product}</p>
+          </div>
         </div>
+      </div>
     </div>
   );
 };

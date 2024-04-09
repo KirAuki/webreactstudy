@@ -1,10 +1,8 @@
-import React,{FC} from 'react'
-import Profile from '../../screens/Profile'
+import React, { FC } from "react";
+import Profile from "../../screens/Profile";
 
+const ProfilePage: FC = () => {
+  return <Profile />;
+};
 
-
-const ProfilePage : FC  = () => {
-  return <Profile/>
-}
-
-export default ProfilePage
+export default ProfilePage;

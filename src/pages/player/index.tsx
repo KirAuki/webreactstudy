@@ -1,10 +1,8 @@
-import React,{FC} from 'react'
-import Player from '../../screens/Player'
+import React, { FC } from "react";
+import Player from "../../screens/Player";
 
+const PlayerPage: FC = () => {
+  return <Player />;
+};
 
-
-const PlayerPage : FC  = () => {
-  return <Player/>
-}
-
-export default PlayerPage
+export default PlayerPage;

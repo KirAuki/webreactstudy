@@ -37,7 +37,7 @@ const Library: FC = () => {
   };
 
   return (
-    <div className="screen-container">
+    <div className="screen-container" data-testid="library-screen-container">
       <Row style={{ margin: "0" }} gutter={16}>
         {currentPlaylists.map((playlist: any) => (
           <Col span={8} key={playlist.id}>

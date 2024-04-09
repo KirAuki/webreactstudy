@@ -46,7 +46,7 @@ const Home: FC = () => {
               control={control}
               defaultValue=""
               rules={{ required: "Это поле обязательно" }}
-              render={({ field }) => <S.StyledInput {...field} />}
+              render={({ field }) => <S.StyledInput id="name" {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem
@@ -66,7 +66,7 @@ const Home: FC = () => {
                   message: "Введите корректный адрес электронной почты",
                 },
               }}
-              render={({ field }) => <S.StyledInput {...field} />}
+              render={({ field }) => <S.StyledInput id="email" {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem
@@ -80,7 +80,7 @@ const Home: FC = () => {
               control={control}
               defaultValue=""
               rules={{ required: "Это поле обязательно" }}
-              render={({ field }) => <S.StyledTextArea {...field} />}
+              render={({ field }) => <S.StyledTextArea id="review" {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem
@@ -101,7 +101,7 @@ const Home: FC = () => {
                   isInteger: (value) => Number.isInteger(Number(value)) || "Рейтинг должен быть целым числом",
                 },
               }}
-              render={({ field }) => <S.StyledInput type="number" {...field} />}
+              render={({ field }) => <S.StyledInput id="rating" type="number" {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem>

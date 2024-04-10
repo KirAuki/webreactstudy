@@ -1,10 +1,8 @@
-import React,{FC} from 'react'
-import Home from '../../screens/Home'
+import React, { FC } from "react";
+import Home from "../../screens/Home";
 
+const HomePage: FC = () => {
+  return <Home />;
+};
 
-
-const HomePage : FC  = () => {
-  return <Home/>
-}
-
-export default HomePage
+export default HomePage;

@@ -1,5 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
-
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
     .screen-container {
@@ -49,7 +48,6 @@ const GlobalStyles = createGlobalStyle`
                 --theme-second-color: #c4d0e3;
                 --theme-accent-color: #1ed540;
     }
-`
-
+`;
 
 export default GlobalStyles;

@@ -1,26 +1,20 @@
-import React, {FC, useState, useRef, useEffect } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import Controls from "./controls";
-import * as S from "./audioPlayerStyle"
+import * as S from "./audioPlayerStyle";
 
 interface AudioPlayerProps {
-    currentTrack: {
-      name: string;
-      album: {
-        artists: { name: string }[];
-      };
-    } | null;
-    currentIndex: number;
-    setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-    total: { track: { preview_url: string } }[];
+  currentTrack: {
+    name: string;
+    album: {
+      artists: { name: string }[];
+    };
+  } | null;
+  currentIndex: number;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  total: { track: { preview_url: string } }[];
 }
 
-
-const AudioPLayer: FC<AudioPlayerProps> = ({
-  currentTrack,
-  currentIndex,
-  setCurrentIndex,
-  total,
-}) => {
+const AudioPLayer: FC<AudioPlayerProps> = ({ currentTrack, currentIndex, setCurrentIndex, total }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const audioSrc = total[currentIndex]?.track.preview_url;
@@ -99,20 +93,19 @@ const AudioPLayer: FC<AudioPlayerProps> = ({
   const artists = currentTrack?.album?.artists?.map((artist) => artist.name) || [];
   return (
     <S.PlayerBody>
-      
-        <S.SongTitle>{currentTrack?.name}</S.SongTitle>
-        <S.SongArtist>{artists.join(" | ")}</S.SongArtist>
-        <S.PlayerRightBottom>
-          <Controls
-            isPlaying={isPlaying}
-            setIsPlaying={setIsPlaying}
-            handleNext={handleNext}
-            handlePrev={handlePrev}
-            total={total}
-          />
-        </S.PlayerRightBottom>
+      <S.SongTitle>{currentTrack?.name}</S.SongTitle>
+      <S.SongArtist>{artists.join(" | ")}</S.SongArtist>
+      <S.PlayerRightBottom>
+        <Controls
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+          total={total}
+        />
+      </S.PlayerRightBottom>
     </S.PlayerBody>
   );
-}
+};
 
-export default AudioPLayer
+export default AudioPLayer;

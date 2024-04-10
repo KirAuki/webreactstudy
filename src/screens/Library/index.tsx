@@ -18,6 +18,16 @@ const Library: FC = () => {
   const playlistsPerPage = 6;
 
   useEffect(() => {
+    APIKit.get("me/playlists").then((response) => {
+      setPlaylists(response.data.items);
+    });
+  }, []);
+
+  const navigate = useNavigate();
+
+  const playPlaylist = (id: number) => {
+    navigate("/player", { state: { id: id } });
+  };
     loadPlaylists();
   }, [currentPage]);
 
@@ -52,36 +62,25 @@ const Library: FC = () => {
   return (
     <div className="screen-container">
       <Row style={{ margin: "0" }} gutter={16}>
-        {playlists?.map((playlist: any, index) => (
+        {currentPlaylists.map((playlist: any) => (
           <Col span={8} key={playlist.id}>
-            {index === playlists.length - 1 ? (
-              <div ref={ref}>
-                <S.CustomCard
-                  title={playlist.name}
-                  onClick={() => playPlaylist(playlist.id)}
-                  style={{ marginBottom: 16 }}
-                >
-                  {playlist.images && playlist.images.length > 0 && (
-                    <img src={playlist.images[0].url} alt={playlist.name} />
-                  )}
-                  <p>Треков: {playlist.tracks.total}</p>
-                </S.CustomCard>
-              </div>
-            ) : (
-              <S.CustomCard
-                title={playlist.name}
-                onClick={() => playPlaylist(playlist.id)}
-                style={{ marginBottom: 16 }}
-              >
-                {playlist.images && playlist.images.length > 0 && (
-                  <img src={playlist.images[0].url} alt={playlist.name} />
-                )}
-                <p>Треков: {playlist.tracks.total}</p>
-              </S.CustomCard>
-            )}
+            <S.CustomCard title={playlist.name} onClick={() => playPlaylist(playlist.id)} style={{ marginBottom: 16 }}>
+              {playlist.images && playlist.images.length > 0 && (
+                <img src={playlist.images[0].url} alt={playlist.name} />
+              )}
+              <p>Треков: {playlist.tracks.total}</p>
+            </S.CustomCard>
           </Col>
         ))}
       </Row>
+      <div style={{ textAlign: "center", marginTop: 16 }}>
+        <S.CustomPagination
+          current={currentPage}
+          total={playlists?.length || 0}
+          pageSize={playlistsPerPage}
+          onChange={paginate}
+        />
+      </div>
     </div>
   );
 };

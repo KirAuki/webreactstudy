@@ -1,10 +1,8 @@
-import React,{FC} from 'react'
-import Auth from '../../screens/Auth'
+import React, { FC } from "react";
+import Auth from "../../screens/Auth";
 
+const AuthPage: FC = () => {
+  return <Auth />;
+};
 
-
-const AuthPage : FC  = () => {
-  return <Auth/>
-}
-
-export default AuthPage
+export default AuthPage;

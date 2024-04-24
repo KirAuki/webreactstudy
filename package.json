@@ -8,12 +8,17 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prettify": "prettier --write './src/**/*.{js,json,jsx,ts,tsx,css}'",
+    "test": "vitest",
+    "test-coverage": "vitest --coverage",
+    "test-ui": "vitest --ui",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@testing-library/dom": "^10.0.0",
     "@react-pdf/renderer": "^3.4.0",
     "antd": "^5.11.5",
     "axios": "^1.6.2",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,8 +30,20 @@
     "lint-staged": "^15.2.2"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^1.4.0",
+    "@vitest/ui": "^1.4.0",
+    "c8": "^9.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint": "^8.57.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.10.0",
@@ -39,7 +56,15 @@
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "jsdom": "^24.0.0",
     "typescript": "^5.2.2",
+    "vite": "^5.0.0",
+    "vitest": "^1.4.0"
+  },
+  "lint-staged": {
+    "./src/**/*.{js,json,jsx,ts,tsx,css}": [
+      "prettify",
+      "eslint --fix"
     "vite": "^5.0.0"
   },
   "lint-staged": {

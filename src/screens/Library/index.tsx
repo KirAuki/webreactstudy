@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import APIKit from "../../spotify";
+
 import { useInView } from "react-intersection-observer";
 import * as S from "./libraryStyle";
 
@@ -60,7 +61,7 @@ const Library: FC = () => {
   };
 
   return (
-    <div className="screen-container">
+    <div className="screen-container" data-testid="library-screen-container">
       <Row style={{ margin: "0" }} gutter={16}>
         {currentPlaylists.map((playlist: any) => (
           <Col span={8} key={playlist.id}>

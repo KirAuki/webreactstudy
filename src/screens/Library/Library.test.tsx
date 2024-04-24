@@ -29,5 +29,21 @@ describe("Library", () => {
         <Library playlists={mockPlaylists} />
       </BrowserRouter>,
     );
+    mockPlaylists.forEach((playlist) => {
+      const playlistCard = screen.getByTestId(`playlist-card-${playlist.id}`);
+      expect(playlistCard).toBeTruthy();
+
+      const playlistTitle = screen.getByText(playlist.name);
+      expect(playlistTitle).toBeInTheDocument();
+
+      const tracksCount = screen.getByText(`Треков: ${playlist.tracks.total}`);
+      expect(tracksCount).toBeInTheDocument();
+
+      if (playlist.images && playlist.images.length > 0) {
+        const playlistImage = screen.getByAltText(playlist.name);
+        expect(playlistImage).toBeInTheDocument();
+        expect(playlistImage).toHaveAttribute("src", playlist.images[0].url);
+      }
+    });
   });
 });

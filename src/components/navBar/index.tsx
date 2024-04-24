@@ -59,6 +59,7 @@ const NavBar: FC = () => {
       label: (
         <>
           <S.CustomSwitch onChange={toggleTheme} data-testid="theme-toggle" checked={theme === "dark"} />
+          <S.CustomSwitch onChange={toggleTheme} checked={theme === "dark"} />
         </>
       ),
       key: "theme-toggle",

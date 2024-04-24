@@ -2,6 +2,8 @@ import React, { FC, useState, useEffect } from "react";
 import { Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import APIKit from "../../spotify";
+
+import { useInView } from "react-intersection-observer";
 import * as S from "./libraryStyle";
 
 interface Playlist {
@@ -27,13 +29,35 @@ const Library: FC = () => {
   const playPlaylist = (id: number) => {
     navigate("/player", { state: { id: id } });
   };
+    loadPlaylists();
+  }, [currentPage]);
 
-  const indexOfLastPlaylist = currentPage * playlistsPerPage;
-  const indexOfFirstPlaylist = indexOfLastPlaylist - playlistsPerPage;
-  const currentPlaylists = playlists?.slice(indexOfFirstPlaylist, indexOfLastPlaylist) || [];
+  const navigate = useNavigate();
 
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      loadPlaylists();
+    }
+  }, [inView]);
+
+  const loadPlaylists = () => {
+    APIKit.get("me/playlists", {
+      params: { offset: (currentPage - 1) * playlistsPerPage },
+    }).then((response) => {
+      setPlaylists((prevPlaylists) => {
+        return prevPlaylists
+          ? [...prevPlaylists, ...response.data.items]
+          : response.data.items;
+      });
+    });
+  };
+
+  const playPlaylist = (id: number) => {
+    navigate("/player", { state: { id: id } });
   };
 
   return (

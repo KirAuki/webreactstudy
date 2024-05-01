@@ -11,7 +11,7 @@
     "test": "vitest",
     "test-coverage": "vitest --coverage",
     "test-ui": "vitest --ui",
-    "preview": "vite preview"
+    "preview": "vite preview --host"
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.4.0",

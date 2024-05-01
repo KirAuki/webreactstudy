@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HOME, PLAYER, LIBRARY, PROFILE, AUTH, getSelectedKey } from "../../app/routing/config";
 import apiClient from "../../spotify";
@@ -59,7 +59,6 @@ const NavBar: FC = () => {
       label: (
         <>
           <S.CustomSwitch onChange={toggleTheme} data-testid="theme-toggle" checked={theme === "dark"} />
-          <S.CustomSwitch onChange={toggleTheme} checked={theme === "dark"} />
         </>
       ),
       key: "theme-toggle",

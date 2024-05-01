@@ -1,6 +1,8 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Space } from "antd";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDocument from "../../components/pdfDocument";
 import * as S from "./homeStyles";
 
 interface IForm {
@@ -8,24 +10,41 @@ interface IForm {
   email: string;
   review: string;
   rating: number;
+  picture: FileList;
+}
+
+interface INew {
+  name: string;
+  email: string;
+  review: string;
+  rating: number;
+  picture: string;
 }
 
 const Home: FC = () => {
   const { handleSubmit, control, formState, reset } = useForm<IForm>({
     mode: "onBlur",
-    defaultValues: {
-      name: "",
-      email: "",
-      review: "",
-      rating: 0,
-    },
   });
   const { errors } = formState;
-  const [feedbackList, setFeedbackList] = useState<IForm[]>([]);
+  const [feedbackList, setFeedbackList] = useState<INew[]>([]);
 
   const CustomSubmit: SubmitHandler<IForm> = (data) => {
-    setFeedbackList((prevList) => [...prevList, data]);
-    reset();
+    const reader = new FileReader();
+
+    const { picture, name, email, review, rating } = data;
+
+    reader.readAsDataURL(picture[0]);
+    reader.onload = () => {
+      const newItem = {
+        name,
+        email,
+        review,
+        rating,
+        picture: reader.result as string,
+      };
+      setFeedbackList((prevList) => [...prevList, newItem]);
+      reset();
+    };
   };
 
   return (
@@ -34,7 +53,7 @@ const Home: FC = () => {
       <p>Sorry all tracks 30sec</p>
       <Space direction="vertical" size="large" style={{ width: "100%", textAlign: "center", alignItems: "center" }}>
         <h2>Форма обратной связи</h2>
-        <S.CustomForm layout="vertical" onFinish={handleSubmit(CustomSubmit)}>
+        <S.CustomForm onSubmit={handleSubmit(CustomSubmit)}>
           <S.CustomFormItem
             label="Имя"
             hasFeedback
@@ -44,9 +63,8 @@ const Home: FC = () => {
             <Controller
               name="name"
               control={control}
-              defaultValue=""
               rules={{ required: "Это поле обязательно" }}
-              render={({ field }) => <S.StyledInput id="name" {...field} />}
+              render={({ field }) => <S.StyledInput {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem
@@ -58,7 +76,6 @@ const Home: FC = () => {
             <Controller
               name="email"
               control={control}
-              defaultValue=""
               rules={{
                 required: "Это поле обязательно",
                 pattern: {
@@ -66,7 +83,7 @@ const Home: FC = () => {
                   message: "Введите корректный адрес электронной почты",
                 },
               }}
-              render={({ field }) => <S.StyledInput id="email" {...field} />}
+              render={({ field }) => <S.StyledInput {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem
@@ -78,9 +95,8 @@ const Home: FC = () => {
             <Controller
               name="review"
               control={control}
-              defaultValue=""
               rules={{ required: "Это поле обязательно" }}
-              render={({ field }) => <S.StyledTextArea id="review" {...field} />}
+              render={({ field }) => <S.StyledTextArea {...field} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem
@@ -92,7 +108,7 @@ const Home: FC = () => {
             <Controller
               name="rating"
               control={control}
-              defaultValue={0}
+              defaultValue={1}
               rules={{
                 required: "Это поле обязательно",
                 min: { value: 1, message: "Рейтинг должен быть от 1 до 5" },
@@ -101,7 +117,17 @@ const Home: FC = () => {
                   isInteger: (value) => Number.isInteger(Number(value)) || "Рейтинг должен быть целым числом",
                 },
               }}
-              render={({ field }) => <S.StyledInput id="rating" type="number" {...field} />}
+              render={({ field }) => <S.StyledInput type="number" {...field} />}
+            />
+          </S.CustomFormItem>
+          <S.CustomFormItem label="Изображение" help={errors.picture?.message}>
+            <Controller
+              name="picture"
+              control={control}
+              rules={{
+                required: "Это поле обязательно",
+              }}
+              render={({ field }) => <input type="file" onChange={(e) => field.onChange(e.target.files)} />}
             />
           </S.CustomFormItem>
           <S.CustomFormItem>
@@ -112,6 +138,9 @@ const Home: FC = () => {
         </S.CustomForm>
 
         <div>
+          <PDFDownloadLink document={<PdfDocument {...feedbackList[0]} />} fileName="feedback.pdf">
+            {({ blob, url, loading, error }) => (loading ? "Загрузка документа..." : "Скачать отзывы в PDF")}
+          </PDFDownloadLink>
           <h3>Список отзывов:</h3>
           <Space direction="vertical" size="middle">
             {feedbackList.map((item, index) => (
@@ -120,6 +149,7 @@ const Home: FC = () => {
                 <p>Email: {item.email}</p>
                 <p>Отзыв: {item.review}</p>
                 <p>Рейтинг: {item.rating}</p>
+                <S.FeedbackImage src={item.picture} alt="picture" />
               </S.FeedbackCard>
             ))}
           </Space>

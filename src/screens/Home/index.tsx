@@ -3,23 +3,8 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Space } from "antd";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfDocument from "../../components/pdfDocument";
-import * as S from "./homeStyles";
-
-interface IForm {
-  name: string;
-  email: string;
-  review: string;
-  rating: number;
-  picture: FileList;
-}
-
-interface INew {
-  name: string;
-  email: string;
-  review: string;
-  rating: number;
-  picture: string;
-}
+import * as S from "./styles";
+import { INew, IForm } from "./types";
 
 const Home: FC = () => {
   const { handleSubmit, control, formState, reset } = useForm<IForm>({

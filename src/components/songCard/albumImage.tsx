@@ -1,9 +1,6 @@
 import React from "react";
 import * as S from "./albumImageStyle";
-
-interface AlbumImageProps {
-  url?: string;
-}
+import { AlbumImageProps } from "./types";
 
 const AlbumImage: React.FC<AlbumImageProps> = ({ url }) => {
   return (

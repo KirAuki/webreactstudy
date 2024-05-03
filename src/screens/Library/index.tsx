@@ -3,18 +3,8 @@ import { Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import APIKit from "../../spotify";
 import { useInView } from "react-intersection-observer";
-import * as S from "./libraryStyle";
-
-interface Playlist {
-  id: number;
-  name: string;
-  images?: { url: string }[];
-  tracks: { total: number };
-}
-
-interface LibraryProps {
-  playlists?: Playlist[];
-}
+import * as S from "./styles";
+import { LibraryProps, Playlist } from "./types";
 
 const Library: FC<LibraryProps> = ({ playlists = [] }) => {
   const [loadedPlaylists, setLoadedPlaylists] = useState([] as Playlist[]);

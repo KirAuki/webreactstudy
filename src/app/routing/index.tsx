@@ -1,9 +1,8 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import { setClientToken } from "../../spotify";
 import { Navigate, RouteObject, useRoutes } from "react-router-dom";
 import { HOME, PROFILE, LIBRARY, PLAYER, AUTH } from "./config";
-import { HomePage, PlayerPage, LibraryPage, ProfilePage, AuthPage } from "../../pages";
-
+import { Home, Player, Library, Profile, Auth } from "../../screens";
 const MainRouter: FC = () => {
   const [token, setToken] = useState("");
 
@@ -24,11 +23,11 @@ const MainRouter: FC = () => {
   }, []);
   const isAuthenticated = !!token;
   const resultPaths: RouteObject[] = [
-    { path: HOME, element: <HomePage /> },
-    { path: PROFILE, element: isAuthenticated ? <ProfilePage /> : <Navigate to={AUTH} replace /> },
-    { path: LIBRARY, element: isAuthenticated ? <LibraryPage /> : <Navigate to={AUTH} replace /> },
-    { path: PLAYER, element: isAuthenticated ? <PlayerPage /> : <Navigate to={AUTH} replace /> },
-    { path: AUTH, element: <AuthPage /> },
+    { path: HOME, element: <Home /> },
+    { path: PROFILE, element: isAuthenticated ? <Profile /> : <Navigate to={AUTH} replace /> },
+    { path: LIBRARY, element: isAuthenticated ? <Library /> : <Navigate to={AUTH} replace /> },
+    { path: PLAYER, element: isAuthenticated ? <Player /> : <Navigate to={AUTH} replace /> },
+    { path: AUTH, element: <Auth /> },
     { path: "*", element: <Navigate to={"/"} replace /> },
   ];
 

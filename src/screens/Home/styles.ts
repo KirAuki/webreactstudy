@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Form, Input, Button, Card, Space } from "antd";
+import { Form  , Input, Button, Card} from "antd";
 
-export const CustomForm = styled(Form)`
+export const CustomForm = styled("form")`
   width: 400px;
 `;
 

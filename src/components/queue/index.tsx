@@ -1,14 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import "./queue.css";
-
-interface QueueProps {
-  tracks?: {
-    track: {
-      name: string;
-    };
-  }[];
-  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-}
+import { QueueProps } from "./types";
 
 const Queue: FC<QueueProps> = ({ tracks, setCurrentIndex }) => {
   return (

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import apiClient from "../../spotify";
 import SongCard from "../../components/songCard";
-import AudioPLayer from "../../components/audioPlayer";
+import AudioPlayer from "../../components/audioPlayer";
 import Queue from "../../components/queue";
+import Loader from "../../components/loader";
 import styled from "styled-components";
 
 const LeftPlayerBody = styled.div`
@@ -21,8 +22,8 @@ const RightPlayerBody = styled.div`
 
 const Player = () => {
   const location = useLocation();
-  const [tracks, setTracks] = useState([]);
-  const [currentTrack, setCurrentTrack] = useState({});
+  const [tracks, setTracks] = useState<any[]>([]);
+  const [currentTrack, setCurrentTrack] = useState<any>({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,12 +44,16 @@ const Player = () => {
   return (
     <div className="screen-container flex">
       <LeftPlayerBody>
-        <AudioPLayer
-          currentTrack={currentTrack}
-          total={tracks}
-          currentIndex={currentIndex}
-          setCurrentIndex={setCurrentIndex}
-        />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <AudioPlayer
+            currentTrack={currentTrack}
+            total={tracks}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+          />
+        )}
       </LeftPlayerBody>
       <RightPlayerBody>
         <SongCard album={currentTrack?.album} />

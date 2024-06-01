@@ -1,15 +1,6 @@
 import React from "react";
 import * as S from "./albumInfoStyle";
-
-interface AlbumInfoProps {
-  album: {
-    name: string;
-    artists: { name: string }[];
-    album_type: string;
-    total_tracks: number;
-    release_date: string;
-  };
-}
+import { AlbumInfoProps } from "./types";
 
 const AlbumInfo: React.FC<AlbumInfoProps> = ({ album }) => {
   if (!album) {

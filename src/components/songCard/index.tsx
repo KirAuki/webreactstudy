@@ -2,6 +2,7 @@ import React from "react";
 import AlbumImage from "./albumImage";
 import AlbumInfo from "./albumInfo";
 import styled from "styled-components";
+import { SongCardProps } from "./types";
 
 const SongCardWrapper = styled.div`
   width: 100%;
@@ -13,23 +14,6 @@ const SongCardWrapper = styled.div`
   align-items: center;
   display: flex;
 `;
-
-interface Artist {
-  name: string;
-}
-
-interface Album {
-  images: { url: string }[];
-  name: string;
-  artists: Artist[];
-  album_type: string;
-  total_tracks: number;
-  release_date: string;
-}
-
-interface SongCardProps {
-  album: Album;
-}
 
 const SongCard: React.FC<SongCardProps> = ({ album }) => {
   return (

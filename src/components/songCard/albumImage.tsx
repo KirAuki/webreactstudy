@@ -1,9 +1,6 @@
 import React from "react";
 import * as S from "./albumImageStyle";
-
-interface AlbumImageProps {
-  url?: string;
-}
+import { AlbumImageProps } from "./types";
 
 const AlbumImage: React.FC<AlbumImageProps> = ({ url }) => {
   return (
@@ -12,8 +9,6 @@ const AlbumImage: React.FC<AlbumImageProps> = ({ url }) => {
         <>
           <S.Image data-testid="placeholder-image" className="albumImage-art-placeholder" />
           <S.Shadow data-testid="placeholder-shadow" className="albumImage-shadow-placeholder" />
-          <S.Image className="albumImage-art-placeholder" />
-          <S.Shadow className="albumImage-shadow-placeholder" />
         </>
       ) : (
         <>

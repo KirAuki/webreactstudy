@@ -29,7 +29,7 @@ interface ProfileData {
   uri: string;
 }
 
-const ProfilePage: React.FC = () => {
+const Profile: React.FC = () => {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   useEffect(() => {
@@ -70,4 +70,4 @@ const ProfilePage: React.FC = () => {
   );
 };
 
-export default ProfilePage;
+export default Profile;
